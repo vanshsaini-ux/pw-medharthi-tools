@@ -1,4 +1,4 @@
-import { ProgramProfile } from '@/types';
+import { ProgramProfile, QualificationLevel } from '@/types';
 
 /**
  * ⚠️ PLACEHOLDER DATA — READ BEFORE LAUNCH
@@ -240,7 +240,7 @@ export function getProgramBySlug(slug: string): ProgramProfile | undefined {
   return PROGRAMS.find((p) => p.slug === slug);
 }
 
-export const QUALIFICATION_LEVEL_RANK: Record<string, number> = {
+export const QUALIFICATION_LEVEL_RANK: Record<QualificationLevel, number> = {
   class12: 1,
   diploma: 2,
   bachelor: 3,

@@ -9,7 +9,7 @@ import ErrorMessage from '@/components/ErrorMessage';
 import ResultCard from '@/components/ResultCard';
 import ShareButton from '@/components/ShareButton';
 import LeadForm from '@/components/LeadForm';
-import { checkEligibility, EligibilityResult, QUALIFICATION_LEVELS, CATEGORIES } from '@/tools/eligibilityChecker';
+import { checkEligibility, EligibilityResult, EligibilityStatus, QUALIFICATION_LEVELS, CATEGORIES } from '@/tools/eligibilityChecker';
 import { PROGRAMS } from '@/config/programs';
 import { Category, QualificationLevel } from '@/types';
 import { trackEvent } from '@/lib/analytics';
@@ -18,7 +18,7 @@ type Stage = 'form' | 'loading' | 'result' | 'apply_form' | 'applied' | 'error';
 
 const PROGRAM_OPTIONS = [{ value: 'suggest_best_fit', label: 'Suggest the best fit for me' }, ...PROGRAMS.map((p) => ({ value: p.slug, label: p.name }))];
 
-const STATUS_COPY: Record<string, { label: string; accent: 'teal' | 'amber' | 'coral' }> = {
+const STATUS_COPY: Record<EligibilityStatus, { label: string; accent: 'teal' | 'amber' | 'coral' }> = {
   eligible: { label: 'Eligible', accent: 'teal' },
   eligible_with_bridge: { label: 'Eligible with Bridge Course', accent: 'amber' },
   not_eligible: { label: 'Not Eligible', accent: 'coral' }

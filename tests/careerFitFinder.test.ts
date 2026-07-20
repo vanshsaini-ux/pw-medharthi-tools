@@ -12,8 +12,8 @@ describe('careerFitFinder', () => {
       studyMode: 'flexible'
     });
     expect(matches).toHaveLength(3);
-    expect(matches[0].matchPercent).toBeGreaterThanOrEqual(matches[1].matchPercent);
-    expect(matches[1].matchPercent).toBeGreaterThanOrEqual(matches[2].matchPercent);
+    expect(matches[0]!.matchPercent).toBeGreaterThanOrEqual(matches[1]!.matchPercent);
+    expect(matches[1]!.matchPercent).toBeGreaterThanOrEqual(matches[2]!.matchPercent);
   });
 
   it('scores a tech_ai program higher for a tech_ai-interested learner than for social_impact interest', () => {
@@ -39,6 +39,6 @@ describe('careerFitFinder', () => {
 
   it('produces a non-generic reason string that references the input', () => {
     const [top] = findTopMatches({ qualification: 'MBA', experience: '3-6', interests: ['finance_commerce'], goal: 'promotion', weeklyHours: 8, studyMode: 'daily_1hr' }, 1);
-    expect(top.reason.length).toBeGreaterThan(10);
+    expect(top!.reason.length).toBeGreaterThan(10);
   });
 });

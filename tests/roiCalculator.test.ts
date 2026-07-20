@@ -2,7 +2,7 @@ import { calculateRoi } from '@/tools/roiCalculator';
 import { PROGRAMS } from '@/config/programs';
 
 describe('roiCalculator', () => {
-  const validSlug = PROGRAMS[0].slug;
+  const validSlug = PROGRAMS[0]!.slug;
 
   it('returns null for an unknown program slug', () => {
     const result = calculateRoi({ isFresher: true, currentAnnualSalaryInr: 0, experienceYears: 0, programSlug: 'does-not-exist', workMode: 'metro' });
