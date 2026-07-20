@@ -92,7 +92,7 @@ export default function SkillGapAnalyzerApp() {
             <p className="flex-1 text-center text-navy-800 sm:text-left">{result.headlineGap}</p>
           </div>
         </ResultCard>
-        <button onClick={() => setStage('gated_form')} className="w-full rounded-lg bg-amber-500 px-6 py-3 font-semibold text-navy-950 hover:bg-amber-600 sm:w-auto">
+        <button onClick={() => setStage('gated_form')} className="btn-primary w-full sm:w-auto">
           Unlock My Full Skill Gap Report
         </button>
       </div>
@@ -155,7 +155,7 @@ export default function SkillGapAnalyzerApp() {
       <FormField label="Target job role" htmlFor="targetRole" required>
         <SelectField id="targetRole" options={ROLE_OPTIONS} value={targetRole} onChange={(e) => setTargetRole(e.target.value)} />
       </FormField>
-      <button onClick={handleAnalyze} className="mt-2 w-full rounded-lg bg-amber-500 px-6 py-3 font-semibold text-navy-950 hover:bg-amber-600 sm:w-auto">
+      <button onClick={handleAnalyze} className="btn-primary mt-2 w-full sm:w-auto">
         Check My Job-Readiness Score
       </button>
     </div>

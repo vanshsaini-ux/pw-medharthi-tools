@@ -13,7 +13,7 @@ interface ScoreDialProps {
   accent?: 'amber' | 'teal' | 'coral';
 }
 
-const ACCENT_HEX: Record<string, string> = {
+const ACCENT_HEX: Record<'amber' | 'teal' | 'coral', string> = {
   amber: '#E8A33D',
   teal: '#1E8C7A',
   coral: '#D8564A'

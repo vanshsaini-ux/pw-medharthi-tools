@@ -9,15 +9,19 @@ interface CTASectionProps {
 
 export default function CTASection({ heading, subheading, primaryLabel, primaryHref, secondaryLabel, secondaryHref }: CTASectionProps) {
   return (
-    <section className="rounded-xl2 bg-navy-900 px-6 py-10 text-center text-white">
-      <h2 className="font-display text-2xl font-semibold">{heading}</h2>
-      {subheading && <p className="mt-2 text-white/70">{subheading}</p>}
-      <div className="mt-5 flex flex-wrap items-center justify-center gap-3">
-        <a href={primaryHref} className="rounded-lg bg-amber-500 px-6 py-3 font-semibold text-navy-950 hover:bg-amber-600">
+    <section className="relative overflow-hidden rounded-xl2 bg-navy-900 px-6 py-12 text-center text-white sm:py-14">
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_50%_0%,rgba(232,163,61,0.18),transparent_60%)]"
+      />
+      <h2 className="font-display text-2xl font-semibold sm:text-3xl">{heading}</h2>
+      {subheading && <p className="mx-auto mt-2.5 max-w-xl text-white/70">{subheading}</p>}
+      <div className="mt-7 flex flex-wrap items-center justify-center gap-3">
+        <a href={primaryHref} className="btn-primary">
           {primaryLabel}
         </a>
         {secondaryLabel && secondaryHref && (
-          <a href={secondaryHref} className="rounded-lg border border-white/30 px-6 py-3 font-semibold text-white hover:bg-white/10">
+          <a href={secondaryHref} className="btn-ghost-on-dark">
             {secondaryLabel}
           </a>
         )}

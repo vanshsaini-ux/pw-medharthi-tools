@@ -132,7 +132,7 @@ export default function LeadForm({
 
       <button
         type="submit"
-        className="w-full rounded-lg bg-amber-500 px-6 py-3 font-semibold text-navy-950 hover:bg-amber-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-navy-900"
+        className="btn-primary w-full"
       >
         {submitLabel}
       </button>

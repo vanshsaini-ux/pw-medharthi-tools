@@ -90,7 +90,7 @@ export default function CareerRoiCalculatorApp() {
               : "This program's payback extends beyond 5 years at your current inputs - the full report shows why and suggests adjustments."}
           </p>
         </ResultCard>
-        <button onClick={() => setStage('gated_form')} className="w-full rounded-lg bg-amber-500 px-6 py-3 font-semibold text-navy-950 hover:bg-amber-600 sm:w-auto">
+        <button onClick={() => setStage('gated_form')} className="btn-primary w-full sm:w-auto">
           Show My Full 5-Year Projection
         </button>
       </div>
@@ -155,7 +155,7 @@ export default function CareerRoiCalculatorApp() {
       <FormField label="City / mode of work" htmlFor="workMode" required>
         <SelectField id="workMode" options={WORK_MODES} value={workMode} onChange={(e) => setWorkMode(e.target.value as WorkMode)} />
       </FormField>
-      <button onClick={handleCalculate} className="mt-2 w-full rounded-lg bg-amber-500 px-6 py-3 font-semibold text-navy-950 hover:bg-amber-600 sm:w-auto">
+      <button onClick={handleCalculate} className="btn-primary mt-2 w-full sm:w-auto">
         Calculate My Career ROI
       </button>
     </div>

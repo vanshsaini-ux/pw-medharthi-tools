@@ -84,7 +84,7 @@ export default function CareerRoadmapGeneratorApp() {
                 <div className="rounded-xl2 border border-dashed border-navy-700/30 bg-navy-50 p-6 text-center">
                   <p className="font-medium text-navy-900">{remainingMilestones.length} more milestones, locked</p>
                   <p className="mt-1 text-sm text-navy-700/70">Unlock your full roadmap as a downloadable, shareable plan.</p>
-                  <button onClick={() => setStage('gated_form')} className="mt-3 rounded-lg bg-amber-500 px-6 py-2.5 font-semibold text-navy-950 hover:bg-amber-600">
+                  <button onClick={() => setStage('gated_form')} className="btn-primary mt-3">
                     Unlock My Full Roadmap
                   </button>
                 </div>
@@ -119,7 +119,7 @@ export default function CareerRoadmapGeneratorApp() {
       <FormField label="Target timeline" htmlFor="timeline" required>
         <SelectField id="timeline" options={TIMELINE_OPTIONS.map((t) => ({ value: String(t.value), label: t.label }))} value={String(timelineMonths)} onChange={(e) => setTimelineMonths(Number(e.target.value) as 6 | 12 | 18)} />
       </FormField>
-      <button onClick={handleGenerate} className="mt-2 w-full rounded-lg bg-amber-500 px-6 py-3 font-semibold text-navy-950 hover:bg-amber-600 sm:w-auto">
+      <button onClick={handleGenerate} className="btn-primary mt-2 w-full sm:w-auto">
         Build My Career Roadmap
       </button>
     </div>

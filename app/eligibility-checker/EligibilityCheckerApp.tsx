@@ -102,7 +102,7 @@ export default function EligibilityCheckerApp() {
 
         {stage === 'result' && (
           <div className="flex flex-wrap items-center gap-3">
-            <button onClick={() => setStage('apply_form')} className="rounded-lg bg-amber-500 px-6 py-3 font-semibold text-navy-950 hover:bg-amber-600">
+            <button onClick={() => setStage('apply_form')} className="btn-primary">
               Apply Now
             </button>
             <a href={`https://wa.me/${(process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '').replace(/[^0-9]/g, '')}`} className="rounded-lg border border-navy-700/20 px-4 py-2 text-sm font-medium text-navy-900 hover:bg-navy-50">
@@ -150,7 +150,7 @@ export default function EligibilityCheckerApp() {
       <FormField label="Target program" htmlFor="targetProgramSlug" required>
         <SelectField id="targetProgramSlug" options={PROGRAM_OPTIONS} value={targetProgramSlug} onChange={(e) => setTargetProgramSlug(e.target.value)} />
       </FormField>
-      <button onClick={handleCheck} className="mt-2 w-full rounded-lg bg-amber-500 px-6 py-3 font-semibold text-navy-950 hover:bg-amber-600 sm:w-auto">
+      <button onClick={handleCheck} className="btn-primary mt-2 w-full sm:w-auto">
         Check My Eligibility Now
       </button>
     </div>

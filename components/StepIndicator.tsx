@@ -16,7 +16,7 @@ export default function StepIndicator({ currentStep, totalSteps, stepLabels }: S
         ))}
       </div>
       {stepLabels?.[currentStep - 1] && (
-        <p className="mt-2 font-mono text-xs uppercase tracking-wide text-navy-700/60">
+        <p className="mt-2.5 font-mono text-xs font-medium uppercase tracking-wide text-navy-700/60">
           Step {currentStep} of {totalSteps} · {stepLabels[currentStep - 1]}
         </p>
       )}

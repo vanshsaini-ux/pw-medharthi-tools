@@ -77,32 +77,36 @@ export default function HomePage() {
     <div>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
 
-      <section className="mb-14 text-center">
-        <p className="font-mono text-xs uppercase tracking-widest text-amber-600">{BRAND} Career Intelligence</p>
-        <h1 className="mx-auto mt-3 max-w-3xl font-display text-4xl font-bold leading-tight text-navy-900 sm:text-5xl">
+      <section className="relative mb-16 overflow-hidden rounded-xl2 px-4 py-16 text-center sm:py-20">
+        <div
+          aria-hidden="true"
+          className="absolute inset-0 -z-10 bg-dot-grid opacity-[0.35] [background-size:22px_22px] [mask-image:radial-gradient(ellipse_60%_60%_at_50%_30%,black,transparent)]"
+        />
+        <p className="eyebrow">{BRAND} Career Intelligence</p>
+        <h1 className="mx-auto mt-4 max-w-3xl font-display text-4xl font-bold leading-tight text-navy-900 sm:text-5xl">
           Five free AI tools to plan your career - grounded in real data, not guesswork.
         </h1>
-        <p className="mx-auto mt-4 max-w-2xl text-navy-700/80">
+        <p className="mx-auto mt-5 max-w-2xl text-navy-700/80">
           Built on the same research backing every {BRAND} program, so every recommendation, every number, and
           every roadmap step is explainable - not a black box.
         </p>
-        <div className="mx-auto mt-6 flex max-w-3xl flex-wrap items-center justify-center gap-3 font-mono text-xs text-navy-700/70">
-          <span className="rounded-full border border-navy-700/15 px-3 py-1">UGC-DEB Recognised Degrees</span>
-          <span className="rounded-full border border-navy-700/15 px-3 py-1">18 Career-Aligned Programs</span>
-          <span className="rounded-full border border-navy-700/15 px-3 py-1">Built on India Skills Report + WEF Future of Jobs Data</span>
+        <div className="mx-auto mt-7 flex max-w-3xl flex-wrap items-center justify-center gap-2.5 font-mono text-xs text-navy-700/70">
+          <span className="rounded-full border border-navy-700/10 bg-white px-3.5 py-1.5 shadow-sm">UGC-DEB Recognised Degrees</span>
+          <span className="rounded-full border border-navy-700/10 bg-white px-3.5 py-1.5 shadow-sm">18 Career-Aligned Programs</span>
+          <span className="rounded-full border border-navy-700/10 bg-white px-3.5 py-1.5 shadow-sm">Built on India Skills Report + WEF Future of Jobs Data</span>
         </div>
       </section>
 
-      <section className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+      <section className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {TOOLS.map((tool) => (
           <ToolCard key={tool.href} {...tool} />
         ))}
       </section>
 
-      <section className="mt-16 grid gap-8 rounded-xl2 border border-navy-700/10 bg-white p-8 md:grid-cols-2">
+      <section className="mt-20 grid gap-10 card p-8 md:grid-cols-2 md:p-10">
         <div>
           <h2 className="font-display text-2xl font-semibold text-navy-900">Why {BRAND} built this</h2>
-          <p className="mt-3 text-navy-700/80">
+          <p className="mt-3.5 leading-relaxed text-navy-700/80">
             Most &ldquo;career quizzes&rdquo; online are marketing gimmicks dressed up as AI. Ours aren&rsquo;t. Every
             recommendation across these five tools traces back to the same research library that shapes {BRAND}&rsquo;s
             course design and content - named, dated, sourced reports, not invented statistics. That&rsquo;s the same
@@ -111,7 +115,7 @@ export default function HomePage() {
         </div>
         <div>
           <h2 className="font-display text-2xl font-semibold text-navy-900">How the five tools work together</h2>
-          <p className="mt-3 text-navy-700/80">
+          <p className="mt-3.5 leading-relaxed text-navy-700/80">
             <strong>Discovery</strong> - Career-Fit Finder finds your program. <strong>Decision</strong> - the ROI
             Calculator and Skill Gap Analyzer help you validate the choice. <strong>Planning</strong> - the AI
             Roadmap Generator turns the decision into a plan. <strong>Conversion</strong> - the Eligibility Checker
@@ -120,7 +124,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <div className="mt-16">
+      <div className="mt-20">
         <CTASection
           heading="Not sure where to start?"
           subheading="Take the 3-minute Career-Fit Finder - it's the fastest way in."

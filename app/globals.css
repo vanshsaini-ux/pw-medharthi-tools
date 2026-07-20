@@ -14,6 +14,11 @@ body {
   background-color: #F4F6F9;
 }
 
+::selection {
+  background-color: #E8A33D;
+  color: #0A0F1E;
+}
+
 /* Visible focus states everywhere, including for keyboard-only nav. */
 :focus-visible {
   outline: 2px solid #E8A33D;
@@ -25,5 +30,34 @@ body {
     animation-duration: 0.001ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.001ms !important;
+  }
+}
+
+@layer base {
+  h1, h2, h3, h4 {
+    font-family: var(--font-space-grotesk), sans-serif;
+    letter-spacing: -0.01em;
+    color: #0F1830;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-1.5 rounded-lg bg-amber-500 px-6 py-3 text-[0.95rem] font-semibold text-navy-950 shadow-sm transition duration-150 hover:bg-amber-600 hover:shadow active:translate-y-px disabled:cursor-not-allowed disabled:opacity-60;
+  }
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-1.5 rounded-lg border border-navy-700/25 bg-white px-6 py-3 text-[0.95rem] font-semibold text-navy-900 transition duration-150 hover:border-navy-700/40 hover:bg-navy-700/[0.03] active:translate-y-px;
+  }
+  .btn-ghost-on-dark {
+    @apply inline-flex items-center justify-center gap-1.5 rounded-lg border border-white/25 px-6 py-3 text-[0.95rem] font-semibold text-white transition duration-150 hover:border-white/40 hover:bg-white/10;
+  }
+  .card {
+    @apply rounded-xl2 border border-navy-700/10 bg-white shadow-card;
+  }
+  .input-field {
+    @apply w-full rounded-lg border border-navy-700/20 bg-white px-3.5 py-2.5 text-base text-navy-900 shadow-sm transition duration-150 placeholder:text-navy-700/40 focus:border-amber-500 focus:outline-none focus:ring-2 focus:ring-amber-500/25;
+  }
+  .eyebrow {
+    @apply font-mono text-xs font-medium uppercase tracking-widest text-amber-600;
   }
 }

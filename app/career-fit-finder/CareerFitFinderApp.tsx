@@ -131,7 +131,7 @@ export default function CareerFitFinderApp() {
         </ResultCard>
         <button
           onClick={() => setStage('gated_form')}
-          className="w-full rounded-lg bg-amber-500 px-6 py-3 font-semibold text-navy-950 hover:bg-amber-600 sm:w-auto"
+          className="btn-primary w-full sm:w-auto"
         >
           Get My Full Match Report
         </button>
@@ -237,7 +237,7 @@ export default function CareerFitFinderApp() {
             Back
           </button>
         ) : <span />}
-        <button onClick={goNext} className="rounded-lg bg-amber-500 px-6 py-2.5 font-semibold text-navy-950 hover:bg-amber-600">
+        <button onClick={goNext} className="btn-primary">
           {step < 3 ? 'Next' : 'Find My Best-Fit Degree'}
         </button>
       </div>
