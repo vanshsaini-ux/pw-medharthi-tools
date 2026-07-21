@@ -13,6 +13,8 @@ import LeadForm from '@/components/LeadForm';
 import { analyzeSkillGap, SkillGapResult } from '@/tools/skillGapAnalyzer';
 import { ALL_ROLES } from '@/config/skillMaps';
 import { extractTextFromFile, ACCEPTED_RESUME_EXTENSIONS, MAX_RESUME_FILE_SIZE_BYTES } from '@/lib/resumeParser';
+import { getProgramBySlug } from '@/config/programs';
+import { EXPLORE_PROGRAMS_URL } from '@/lib/links';
 import { trackEvent } from '@/lib/analytics';
 
 type Stage = 'form' | 'loading' | 'teaser' | 'gated_form' | 'full' | 'error';
@@ -118,25 +120,33 @@ export default function SkillGapAnalyzerApp() {
         </ResultCard>
         <ResultCard title="Skills to close the gap" accent="coral">
           <ul className="space-y-2 text-sm">
-            {result.missingSkills.map((s) => (
-              <li key={s.skill} className="border-b border-navy-700/10 pb-2 last:border-0">
-                <p className="font-medium">{s.skill}</p>
-                <p className="text-navy-700/70">Covered in: {s.courseModule}</p>
-              </li>
-            ))}
+            {result.missingSkills.map((s) => {
+              const program = getProgramBySlug(s.programSlug);
+              return (
+                <li key={s.skill} className="border-b border-navy-700/10 pb-2 last:border-0">
+                  <p className="font-medium">{s.skill}</p>
+                  <p className="text-navy-700/70">Covered in: {s.courseModule}</p>
+                  {program && (
+                    <a href={EXPLORE_PROGRAMS_URL} target="_blank" rel="noreferrer" className="mt-1 inline-block text-xs font-semibold text-teal-600 hover:underline">
+                      via {program.name} →
+                    </a>
+                  )}
+                </li>
+              );
+            })}
             {result.missingSkills.length === 0 && <li className="text-navy-700/60">No major gaps detected for this role.</li>}
           </ul>
         </ResultCard>
         <div className="flex flex-wrap items-center gap-3">
           <ShareButton toolSlug="skill-gap-analyzer" title="My Job-Readiness Score" text={`I'm ${result.readinessPercent}% ready for a ${result.role} role`} />
-          <button onClick={reset} className="rounded-lg border border-navy-700/20 px-4 py-2 text-sm font-medium text-navy-900 hover:bg-navy-50">Analyze again</button>
+          <button onClick={reset} className="btn-secondary">Analyze again</button>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="rounded-xl2 border border-navy-700/10 bg-white p-6">
+    <div className="card p-6 sm:p-8">
       <FormField label="Upload your resume (PDF/DOCX/TXT)" htmlFor="resumeFile" error={fileError || undefined}>
         <input id="resumeFile" type="file" accept={ACCEPTED_RESUME_EXTENSIONS} onChange={handleFileChange} className="block w-full text-sm text-navy-700" />
       </FormField>
@@ -146,7 +156,7 @@ export default function SkillGapAnalyzerApp() {
           rows={6}
           value={resumeText}
           onChange={(e) => setResumeText(e.target.value)}
-          className="w-full rounded-lg border border-navy-700/20 bg-white px-3 py-2.5 text-sm focus:border-amber-500 focus:outline-none focus:ring-2 focus:ring-amber-500/30"
+          className="input-field text-sm"
         />
       </FormField>
       <FormField label="…or your LinkedIn profile URL" htmlFor="linkedinUrl" hint="Optional alternative to a resume" error={formError || undefined}>

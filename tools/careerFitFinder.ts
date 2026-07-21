@@ -89,7 +89,6 @@ export const INTEREST_DOMAINS: { value: InterestDomain; label: string }[] = [
   { value: 'tech_ai', label: 'Tech & AI' },
   { value: 'business_management', label: 'Business & Management' },
   { value: 'people_hr', label: 'People & HR' },
-  { value: 'law_compliance', label: 'Law & Compliance' },
   { value: 'finance_commerce', label: 'Finance & Commerce' },
   { value: 'science_research', label: 'Science & Research' },
   { value: 'healthcare_pharma', label: 'Healthcare & Pharma' },

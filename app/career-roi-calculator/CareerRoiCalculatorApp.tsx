@@ -11,13 +11,14 @@ import ShareButton from '@/components/ShareButton';
 import LeadForm from '@/components/LeadForm';
 import SalaryCurveChart from '@/components/SalaryCurveChart';
 import { calculateRoi, RoiResult, WORK_MODES } from '@/tools/roiCalculator';
-import { PROGRAMS } from '@/config/programs';
+import { PROGRAMS, groupProgramsForSelect } from '@/config/programs';
 import { WorkMode } from '@/types';
 import { trackEvent } from '@/lib/analytics';
 
 type Stage = 'form' | 'loading' | 'teaser' | 'gated_form' | 'full' | 'error';
 
-const PROGRAM_OPTIONS = PROGRAMS.map((p) => ({ value: p.slug, label: p.name }));
+const PROGRAM_GROUPS = groupProgramsForSelect(PROGRAMS);
+const PROGRAM_OPTIONS = PROGRAM_GROUPS.flatMap((g) => g.options);
 
 export default function CareerRoiCalculatorApp() {
   const [stage, setStage] = useState<Stage>('form');
@@ -124,8 +125,8 @@ export default function CareerRoiCalculatorApp() {
         </p>
         <div className="flex flex-wrap items-center gap-3">
           <ShareButton toolSlug="career-roi-calculator" title="My Career ROI Result" text={`My break-even point for ${result.program.name}: ${result.breakEvenMonth ? 'Month ' + result.breakEvenMonth : '5+ years'}`} />
-          <button onClick={reset} className="rounded-lg border border-navy-700/20 px-4 py-2 text-sm font-medium text-navy-900 hover:bg-navy-50">Calculate again</button>
-          <a href={`https://wa.me/${(process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '').replace(/[^0-9]/g, '')}`} className="rounded-lg border border-navy-700/20 px-4 py-2 text-sm font-medium text-navy-900 hover:bg-navy-50">
+          <button onClick={reset} className="btn-secondary">Calculate again</button>
+          <a href={`https://wa.me/${(process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '').replace(/[^0-9]/g, '')}`} className="btn-secondary">
             Get an EMI Plan for This Program
           </a>
         </div>
@@ -134,7 +135,7 @@ export default function CareerRoiCalculatorApp() {
   }
 
   return (
-    <div className="rounded-xl2 border border-navy-700/10 bg-white p-6">
+    <div className="card p-6 sm:p-8">
       <FormField label="Are you currently a fresher (no salary yet)?" htmlFor="isFresher">
         <div className="flex gap-4 text-sm">
           <label className="flex items-center gap-2"><input type="radio" checked={isFresher} onChange={() => setIsFresher(true)} /> Yes, fresher</label>
@@ -150,7 +151,7 @@ export default function CareerRoiCalculatorApp() {
         <NumberInput id="experienceYears" min={0} max={40} value={experienceYears} onChange={(e) => setExperienceYears(Number(e.target.value))} />
       </FormField>
       <FormField label="Target program" htmlFor="programSlug" required error={isFresher ? formError || undefined : undefined}>
-        <SelectField id="programSlug" options={PROGRAM_OPTIONS} value={programSlug} onChange={(e) => setProgramSlug(e.target.value)} />
+        <SelectField id="programSlug" groups={PROGRAM_GROUPS} value={programSlug} onChange={(e) => setProgramSlug(e.target.value)} />
       </FormField>
       <FormField label="City / mode of work" htmlFor="workMode" required>
         <SelectField id="workMode" options={WORK_MODES} value={workMode} onChange={(e) => setWorkMode(e.target.value as WorkMode)} />

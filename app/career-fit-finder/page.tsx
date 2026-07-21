@@ -66,7 +66,7 @@ export default function CareerFitFinderPage() {
       <section className="grid gap-6 sm:grid-cols-3">
         {[
           ['1', 'Tell us your background', 'Current qualification, experience, and what you\u2019re hoping to change about your career.'],
-          ['2', 'AI scores your answers', 'Scored against all 18 programs on the same dimensions real career outcomes are built on.'],
+          ['2', 'AI scores your answers', 'Scored against all 87 programs on the same dimensions real career outcomes are built on.'],
           ['3', 'Get your top 3 matches', 'Instantly, each with a plain-English reason, expected roles, and salary data.']
         ].map(([n, t, d]) => (
           <div key={n} className="rounded-xl2 border border-navy-700/10 bg-white p-5">

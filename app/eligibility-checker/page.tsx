@@ -12,7 +12,7 @@ export const metadata: Metadata = {
   title: 'Eligibility Checker | Am I Eligible? Instant Check',
   description: `Check your eligibility across all 18 ${BRAND} UGC-DEB recognised programs instantly - no waiting, no email required to see your result.`,
   alternates: { canonical: PATH },
-  openGraph: { title: 'Eligibility Checker', description: 'Check your eligibility instantly across 18 programs.', url: `${SITE_URL}${PATH}`, type: 'website' },
+  openGraph: { title: 'Eligibility Checker', description: 'Check your eligibility instantly across 87 programs.', url: `${SITE_URL}${PATH}`, type: 'website' },
   twitter: { card: 'summary_large_image', title: 'Eligibility Checker' }
 };
 

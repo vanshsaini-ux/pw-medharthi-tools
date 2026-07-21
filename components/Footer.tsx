@@ -1,3 +1,5 @@
+import Image from 'next/image';
+
 const BRAND = process.env.NEXT_PUBLIC_BRAND_NAME || 'PW Medharthi';
 const PRIVACY_URL = process.env.NEXT_PUBLIC_PRIVACY_POLICY_URL || '#';
 
@@ -15,8 +17,10 @@ export default function Footer() {
       <div className="mx-auto max-w-6xl px-5 py-12">
         <div className="grid gap-10 md:grid-cols-[1.3fr_1fr]">
           <div>
-            <p className="font-display text-base font-semibold text-white">{BRAND} Career Intelligence</p>
-            <p className="mt-3 max-w-md text-sm leading-relaxed text-white/60">
+            <div className="inline-flex items-center rounded-md bg-white px-2.5 py-1.5 shadow-sm">
+              <Image src="/logo-full.png" alt={BRAND} width={160} height={83} className="h-7 w-auto object-contain" />
+            </div>
+            <p className="mt-4 max-w-md text-sm leading-relaxed text-white/60">
               These tools provide data-informed guidance and are not a substitute for personalised counselling.
               For a detailed discussion of your specific situation, {BRAND}&rsquo;s program counsellors are
               available via chat, call, or WhatsApp.

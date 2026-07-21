@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { Menu, X } from 'lucide-react';
 
 const BRAND = process.env.NEXT_PUBLIC_BRAND_NAME || 'PW Medharthi';
@@ -21,8 +22,8 @@ export default function Header() {
     <header className="sticky top-0 z-40 bg-navy-950 text-white shadow-header">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-5 py-3.5">
         <Link href="/" className="flex items-center gap-2.5" onClick={() => setOpen(false)}>
-          <span className="flex h-8 w-8 items-center justify-center rounded-md bg-amber-500 font-display text-sm font-bold text-navy-950">
-            PW
+          <span className="flex h-9 w-9 items-center justify-center rounded-md bg-white p-1 shadow-sm">
+            <Image src="/logo-icon.png" alt="PW Medharthi" width={28} height={28} className="h-full w-full object-contain" />
           </span>
           <span className="font-display text-[0.95rem] font-semibold tracking-tight sm:text-base">
             {BRAND} <span className="text-amber-500">Career Intelligence</span>

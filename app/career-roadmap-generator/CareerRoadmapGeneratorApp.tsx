@@ -6,10 +6,11 @@ import SelectField from '@/components/SelectField';
 import TextInput from '@/components/TextInput';
 import LoadingState from '@/components/LoadingState';
 import ErrorMessage from '@/components/ErrorMessage';
-import ResultCard from '@/components/ResultCard';
+import RoadmapPath from '@/components/RoadmapPath';
 import ShareButton from '@/components/ShareButton';
 import LeadForm from '@/components/LeadForm';
 import { TIMELINE_OPTIONS, RoadmapResult } from '@/tools/roadmapGenerator';
+import { ALL_ROLES } from '@/config/skillMaps';
 import { trackEvent } from '@/lib/analytics';
 
 type Stage = 'form' | 'loading' | 'preview' | 'gated_form' | 'full' | 'error';
@@ -68,27 +69,21 @@ export default function CareerRoadmapGeneratorApp() {
   if (stage === 'loading') return <LoadingState label="Building your milestone-by-milestone roadmap…" />;
 
   if ((stage === 'preview' || stage === 'gated_form' || stage === 'full') && roadmap) {
-    const previewMilestones = roadmap.milestones.slice(0, 1);
-    const remainingMilestones = roadmap.milestones.slice(1);
     const showAll = stage === 'full';
 
     return (
       <div className="space-y-6">
-        <div className="space-y-4">
-          {previewMilestones.map((m) => (
-            <MilestoneCard key={m.monthRangeLabel} milestone={m} />
-          ))}
-          {showAll
-            ? remainingMilestones.map((m) => <MilestoneCard key={m.monthRangeLabel} milestone={m} />)
-            : remainingMilestones.length > 0 && (
-                <div className="rounded-xl2 border border-dashed border-navy-700/30 bg-navy-50 p-6 text-center">
-                  <p className="font-medium text-navy-900">{remainingMilestones.length} more milestones, locked</p>
-                  <p className="mt-1 text-sm text-navy-700/70">Unlock your full roadmap as a downloadable, shareable plan.</p>
-                  <button onClick={() => setStage('gated_form')} className="btn-primary mt-3">
-                    Unlock My Full Roadmap
-                  </button>
-                </div>
-              )}
+        {!roadmap.groundedInRole && (
+          <p className="rounded-lg border border-amber-500/30 bg-amber-100/40 px-4 py-2.5 text-sm text-navy-800">
+            We don&rsquo;t have a verified skill map for &ldquo;{roadmap.targetRole}&rdquo; yet, so this roadmap uses
+            general milestones rather than course-matched ones. Try a role like Data Scientist, Business Analyst,
+            Digital Marketing Manager, Financial Analyst, HR Analytics Lead or Generative AI Engineer for a fully
+            matched plan.
+          </p>
+        )}
+
+        <div className="card p-6 sm:p-8">
+          <RoadmapPath roadmap={roadmap} showAll={showAll} onUnlock={() => setStage('gated_form')} />
         </div>
 
         {stage === 'gated_form' && (
@@ -98,8 +93,8 @@ export default function CareerRoadmapGeneratorApp() {
         {showAll && (
           <div className="flex flex-wrap items-center gap-3">
             <ShareButton toolSlug="career-roadmap-generator" title="My Career Roadmap" text={`My ${timelineMonths}-month roadmap to becoming a ${roadmap.targetRole}`} />
-            <button onClick={reset} className="rounded-lg border border-navy-700/20 px-4 py-2 text-sm font-medium text-navy-900 hover:bg-navy-50">Build another roadmap</button>
-            <a href={`https://wa.me/${(process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '').replace(/[^0-9]/g, '')}`} className="rounded-lg border border-navy-700/20 px-4 py-2 text-sm font-medium text-navy-900 hover:bg-navy-50">
+            <button onClick={reset} className="btn-secondary">Build another roadmap</button>
+            <a href={`https://wa.me/${(process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '').replace(/[^0-9]/g, '')}`} className="btn-secondary">
               Get Milestone Reminders on WhatsApp
             </a>
           </div>
@@ -109,9 +104,14 @@ export default function CareerRoadmapGeneratorApp() {
   }
 
   return (
-    <div className="rounded-xl2 border border-navy-700/10 bg-white p-6">
-      <FormField label="I want to become a ___" htmlFor="targetRole" required error={formError || undefined}>
-        <TextInput id="targetRole" placeholder="e.g. Data Scientist" value={targetRole} onChange={(e) => setTargetRole(e.target.value)} />
+    <div className="card p-6 sm:p-8">
+      <FormField label="I want to become a ___" htmlFor="targetRole" required error={formError || undefined} hint={`Try: ${ALL_ROLES.slice(0, 3).join(', ')}...`}>
+        <TextInput id="targetRole" placeholder="e.g. Data Scientist" list="role-suggestions" value={targetRole} onChange={(e) => setTargetRole(e.target.value)} />
+        <datalist id="role-suggestions">
+          {ALL_ROLES.map((role) => (
+            <option key={role} value={role} />
+          ))}
+        </datalist>
       </FormField>
       <FormField label="Your current background" htmlFor="background" hint="One line - education + experience">
         <TextInput id="background" placeholder="e.g. B.Com graduate, 1 year in sales" value={background} onChange={(e) => setBackground(e.target.value)} />
@@ -123,20 +123,5 @@ export default function CareerRoadmapGeneratorApp() {
         Build My Career Roadmap
       </button>
     </div>
-  );
-}
-
-function MilestoneCard({ milestone }: { milestone: RoadmapResult['milestones'][number] }) {
-  return (
-    <ResultCard title={`${milestone.monthRangeLabel} · ${milestone.focus}`} accent="amber">
-      <ul className="list-disc space-y-1 pl-5 text-sm">
-        {milestone.activities.map((a) => (
-          <li key={a}>{a}</li>
-        ))}
-      </ul>
-      {milestone.matchedProgramName && (
-        <p className="mt-2 text-xs font-medium text-teal-500">Covered in: {milestone.matchedProgramName} — {milestone.matchedCourseModule}</p>
-      )}
-    </ResultCard>
   );
 }

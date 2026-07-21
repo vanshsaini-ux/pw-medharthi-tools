@@ -10,6 +10,7 @@ export interface RoadmapMilestone {
   activities: string[];
   matchedCourseModule?: string;
   matchedProgramName?: string;
+  matchedProgramSlug?: string;
 }
 
 export interface RoadmapResult {
@@ -68,7 +69,8 @@ export function buildGroundedRoadmap(targetRole: string, background: string, tim
       focus: phase.label,
       activities,
       matchedCourseModule: firstMatched?.courseModule,
-      matchedProgramName: matchedProgram?.name
+      matchedProgramName: matchedProgram?.name,
+      matchedProgramSlug: matchedProgram?.slug
     });
   });
 

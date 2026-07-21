@@ -30,12 +30,9 @@ export type WorkMode = 'metro' | 'tier2' | 'remote';
 export type Category = 'General' | 'OBC' | 'SC' | 'ST' | 'EWS';
 
 /** A single PW Medharthi program record used by every tool's engine.
- * NOTE: the uploaded brief names 18 programs but does not supply their
- * underlying scoring weights, fees, salary bands or eligibility rules.
- * The records in /config are realistic PLACEHOLDER data so every tool is
- * fully functional out of the box - replace them with the real 18-program
- * data from the Keyword Architecture / Research Library before launch.
- * See README.md > "Data you must replace before launch". */
+ * See /config/programs.ts for what's real (names, eligibility) vs. still
+ * placeholder (fees, salaries, growth multipliers, domain tags) about the
+ * current 87-program catalogue, and each record's own `sourceNote`. */
 export interface ProgramProfile {
   id: string;
   name: string;

@@ -112,7 +112,7 @@ export default function CareerFitFinderApp() {
     return <ErrorMessage message="We couldn't calculate your match. Please check your answers and try again." onRetry={resetTool} />;
   }
 
-  if (stage === 'loading') return <LoadingState label="Matching your profile against 18 programs…" />;
+  if (stage === 'loading') return <LoadingState label="Matching your profile against 87 programs…" />;
 
   if (stage === 'teaser' && top) {
     return (
@@ -169,10 +169,10 @@ export default function CareerFitFinderApp() {
         </div>
         <div className="flex flex-wrap items-center gap-3">
           <ShareButton toolSlug="career-fit-finder" title="My Career-Fit Result" text={`My top match: ${top?.program.name} (${top?.matchPercent}% fit)`} />
-          <button onClick={resetTool} className="rounded-lg border border-navy-700/20 px-4 py-2 text-sm font-medium text-navy-900 hover:bg-navy-50">
+          <button onClick={resetTool} className="btn-secondary">
             Retake the quiz
           </button>
-          <a href={`https://wa.me/?text=${encodeURIComponent('I want to talk to a program counsellor about my Career-Fit result.')}`} className="rounded-lg border border-navy-700/20 px-4 py-2 text-sm font-medium text-navy-900 hover:bg-navy-50">
+          <a href={`https://wa.me/?text=${encodeURIComponent('I want to talk to a program counsellor about my Career-Fit result.')}`} className="btn-secondary">
             Talk to a Program Counsellor
           </a>
         </div>
@@ -182,7 +182,7 @@ export default function CareerFitFinderApp() {
 
   // stage === 'form'
   return (
-    <div className="rounded-xl2 border border-navy-700/10 bg-white p-6">
+    <div className="card p-6 sm:p-8">
       <StepIndicator currentStep={step} totalSteps={3} stepLabels={['Your background', 'Interests & goal', 'Study preferences']} />
 
       {step === 1 && (
@@ -190,7 +190,7 @@ export default function CareerFitFinderApp() {
           <FormField label="Current qualification & year of completion" htmlFor="qualification" required error={stepError || undefined}>
             <input
               id="qualification"
-              className="w-full rounded-lg border border-navy-700/20 bg-white px-3 py-2.5 text-base focus:border-amber-500 focus:outline-none focus:ring-2 focus:ring-amber-500/30"
+              className="input-field"
               placeholder="e.g. B.Com, 2022"
               value={qualification}
               onChange={(e) => setQualification(e.target.value)}
@@ -233,7 +233,7 @@ export default function CareerFitFinderApp() {
 
       <div className="mt-6 flex justify-between">
         {step > 1 ? (
-          <button onClick={() => setStep(step - 1)} className="rounded-lg border border-navy-700/20 px-4 py-2 text-sm font-medium text-navy-900 hover:bg-navy-50">
+          <button onClick={() => setStep(step - 1)} className="btn-secondary">
             Back
           </button>
         ) : <span />}

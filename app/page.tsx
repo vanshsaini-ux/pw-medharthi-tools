@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Compass, Calculator, ScanSearch, Map, ShieldCheck } from 'lucide-react';
 import ToolCard from '@/components/ToolCard';
 import CTASection from '@/components/CTASection';
+import { EXPLORE_PROGRAMS_URL } from '@/lib/links';
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://tools.pwmedharthi.com';
 const BRAND = process.env.NEXT_PUBLIC_BRAND_NAME || 'PW Medharthi';
@@ -90,9 +91,22 @@ export default function HomePage() {
           Built on the same research backing every {BRAND} program, so every recommendation, every number, and
           every roadmap step is explainable - not a black box.
         </p>
-        <div className="mx-auto mt-7 flex max-w-3xl flex-wrap items-center justify-center gap-2.5 font-mono text-xs text-navy-700/70">
+        <div className="mt-6 flex justify-center">
+          <a
+            href={EXPLORE_PROGRAMS_URL}
+            target="_blank"
+            rel="noreferrer"
+            className="inline-flex items-center gap-2 rounded-full border border-amber-500/40 bg-amber-100/50 px-4 py-2 text-sm font-semibold text-amber-700 shadow-sm transition hover:bg-amber-100"
+          >
+            Want to see the full course catalogue?
+            <span className="inline-flex items-center gap-1 rounded-full bg-amber-500 px-2.5 py-1 text-xs font-bold text-navy-950">
+              Explore all programs →
+            </span>
+          </a>
+        </div>
+        <div className="mx-auto mt-6 flex max-w-3xl flex-wrap items-center justify-center gap-2.5 font-mono text-xs text-navy-700/70">
           <span className="rounded-full border border-navy-700/10 bg-white px-3.5 py-1.5 shadow-sm">UGC-DEB Recognised Degrees</span>
-          <span className="rounded-full border border-navy-700/10 bg-white px-3.5 py-1.5 shadow-sm">18 Career-Aligned Programs</span>
+          <span className="rounded-full border border-navy-700/10 bg-white px-3.5 py-1.5 shadow-sm">87 Career-Aligned Programs</span>
           <span className="rounded-full border border-navy-700/10 bg-white px-3.5 py-1.5 shadow-sm">Built on India Skills Report + WEF Future of Jobs Data</span>
         </div>
       </section>

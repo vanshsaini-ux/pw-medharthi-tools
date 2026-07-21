@@ -10,13 +10,14 @@ import ResultCard from '@/components/ResultCard';
 import ShareButton from '@/components/ShareButton';
 import LeadForm from '@/components/LeadForm';
 import { checkEligibility, EligibilityResult, EligibilityStatus, QUALIFICATION_LEVELS, CATEGORIES } from '@/tools/eligibilityChecker';
-import { PROGRAMS } from '@/config/programs';
+import { PROGRAMS, groupProgramsForSelect } from '@/config/programs';
 import { Category, QualificationLevel } from '@/types';
 import { trackEvent } from '@/lib/analytics';
 
 type Stage = 'form' | 'loading' | 'result' | 'apply_form' | 'applied' | 'error';
 
-const PROGRAM_OPTIONS = [{ value: 'suggest_best_fit', label: 'Suggest the best fit for me' }, ...PROGRAMS.map((p) => ({ value: p.slug, label: p.name }))];
+const SUGGEST_BEST_FIT_OPTION = [{ value: 'suggest_best_fit', label: 'Suggest the best fit for me' }];
+const PROGRAM_GROUPS = groupProgramsForSelect(PROGRAMS);
 
 const STATUS_COPY: Record<EligibilityStatus, { label: string; accent: 'teal' | 'amber' | 'coral' }> = {
   eligible: { label: 'Eligible', accent: 'teal' },
@@ -105,11 +106,11 @@ export default function EligibilityCheckerApp() {
             <button onClick={() => setStage('apply_form')} className="btn-primary">
               Apply Now
             </button>
-            <a href={`https://wa.me/${(process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '').replace(/[^0-9]/g, '')}`} className="rounded-lg border border-navy-700/20 px-4 py-2 text-sm font-medium text-navy-900 hover:bg-navy-50">
+            <a href={`https://wa.me/${(process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '').replace(/[^0-9]/g, '')}`} className="btn-secondary">
               Talk to Admissions on WhatsApp
             </a>
             <ShareButton toolSlug="eligibility-checker" title="My Eligibility Result" text={`My eligibility result: ${resultSummary}`} />
-            <button onClick={reset} className="rounded-lg border border-navy-700/20 px-4 py-2 text-sm font-medium text-navy-900 hover:bg-navy-50">Check again</button>
+            <button onClick={reset} className="btn-secondary">Check again</button>
           </div>
         )}
 
@@ -134,7 +135,7 @@ export default function EligibilityCheckerApp() {
   }
 
   return (
-    <div className="rounded-xl2 border border-navy-700/10 bg-white p-6">
+    <div className="card p-6 sm:p-8">
       <FormField label="Highest qualification" htmlFor="qualificationLevel" required>
         <SelectField id="qualificationLevel" options={QUALIFICATION_LEVELS} value={qualificationLevel} onChange={(e) => setQualificationLevel(e.target.value as QualificationLevel)} />
       </FormField>
@@ -148,7 +149,7 @@ export default function EligibilityCheckerApp() {
         <NumberInput id="experienceYears" min={0} max={40} value={experienceYears} onChange={(e) => setExperienceYears(Number(e.target.value))} />
       </FormField>
       <FormField label="Target program" htmlFor="targetProgramSlug" required>
-        <SelectField id="targetProgramSlug" options={PROGRAM_OPTIONS} value={targetProgramSlug} onChange={(e) => setTargetProgramSlug(e.target.value)} />
+        <SelectField id="targetProgramSlug" options={SUGGEST_BEST_FIT_OPTION} groups={PROGRAM_GROUPS} value={targetProgramSlug} onChange={(e) => setTargetProgramSlug(e.target.value)} />
       </FormField>
       <button onClick={handleCheck} className="btn-primary mt-2 w-full sm:w-auto">
         Check My Eligibility Now

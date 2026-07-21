@@ -11,7 +11,7 @@ pipeline into Google Sheets, analytics events, and SEO metadata for every page.
 
 | # | Tool | Funnel stage | Gate | Core logic |
 |---|------|--------------|------|------------|
-| 1 | Career-Fit Finder | TOFU / Discovery | Result-page gate | Weighted cosine-similarity match of the learner's profile against 18 programs |
+| 1 | Career-Fit Finder | TOFU / Discovery | Result-page gate | Weighted cosine-similarity match of the learner's profile against 87 real programs |
 | 2 | Career ROI & Salary Growth Calculator | MOFU / Decision | Result-page gate | Break-even month = fee ÷ monthly salary delta, 5-year projected curve |
 | 3 | Skill Gap Analyzer | MOFU / Decision | Light gate (email only) | Keyword/synonym skill extraction vs. a per-role skill map, weighted readiness % |
 | 4 | AI Career Roadmap Generator | MOFU→BOFU | Progressive gate (2 months free) | Deterministic, grounded milestone builder; optional LLM narrative enrichment |
@@ -26,12 +26,12 @@ their result, source page, UTM source/medium/campaign, referrer, device type, co
 and a timestamp. Google Sheets receives one row per submission (see §6).
 
 ### Assumptions made (documented, not invented facts)
-- **The uploaded brief names "18 PW Medharthi degrees" and cites named external reports
-  (India Skills Report 2025, WEF Future of Jobs 2025, Deloitte Campus Trends) but does not
-  include the underlying data** (program vectors, fees, salary bands, eligibility %,
-  skill maps). `/config/programs.ts` and `/config/skillMaps.ts` contain clearly labelled
-  **placeholder data** for 18 programs and 7 job roles so every tool is fully functional
-  today. **Replace these numbers with verified figures before launch** — see §2.
+- **`/config/programs.ts` now contains 87 real PW Medharthi programs** (names +
+  eligibility) parsed from PW Medharthi's official programme sheet (July 2026). Fee,
+  duration, salary and growth-multiplier figures are still clearly-flagged
+  **placeholder data**, since that sheet didn't include them and the live listing page
+  loads pricing client-side (not scrapable). **Replace these numbers with verified
+  figures before launch** — see §2.
 - **City/work-mode salary multiplier** (metro/tier-2/remote) in the ROI calculator is a
   reasonable modelling choice, not sourced from the brief — tune the multipliers in
   `tools/roiCalculator.ts` if you have real city-wise data.
@@ -94,18 +94,33 @@ components/                  # Shared, reusable UI (Header, Footer, ToolCard, Fo
 lib/                         # validation, sanitize, analytics, utm, device,
                               # leadSubmit (client), rateLimit (server), resumeParser
 tools/                       # Pure calculation engines — one per tool, fully unit-tested
-config/                      # programs.ts, skillMaps.ts — ⚠️ placeholder data, see §1
+config/                      # programs.ts (87 real programs), skillMaps.ts — see §2
 types/                       # Shared TypeScript types
 google-apps-script/Code.gs   # Paste into Google Sheets > Extensions > Apps Script
 tests/                       # Jest unit tests for every calculation engine + validation
 ```
 
-### Data you must replace before launch
-Open `config/programs.ts` and `config/skillMaps.ts`. Every placeholder record has a
-`sourceNote` field flagging it. Replace: program fees, starting salaries, growth
-multipliers, eligibility %, and skill weightings with verified figures from PW's
-Research Library / Keyword Architecture. The engines in `/tools` don't need to change —
-they just read this data.
+### Data status - what's real vs. placeholder (updated July 2026)
+`config/programs.ts` now ships with **87 real PW Medharthi programs** (names +
+eligibility), parsed from PW Medharthi's official programme/eligibility sheet. What's
+still placeholder, per each record's `sourceNote`:
+- **Real**: `name`, `minQualificationLevel`, `minPercentage`, `minExperienceYears`,
+  `bridgeCourseAvailable` for the 8 IIT/IIM certificate programs (verbatim from the
+  sheet's eligibility text). The other ~79 programs use the sheet's own general rule
+  (UG programme -> Class 12, PG programme -> Bachelor's), inferred from each program's
+  name (e.g. "BBA ..." -> UG).
+- **Still placeholder**: `feeInr`, `durationMonths`, `avgStartingSalaryInr`, growth
+  multipliers, and the Career-Fit Finder interest-domain tag (inferred from the course
+  title, not confirmed against a curriculum). **Do not display fee or salary figures
+  publicly until these are replaced** with confirmed numbers from PW Medharthi - ask
+  finance/program-ops for a fee & starting-salary sheet per program, then swap the
+  numbers in directly. The engines in `/tools` don't need to change - they just read
+  this data.
+
+`config/skillMaps.ts` now points every skill at a real, matching PW Medharthi program
+(e.g. HR Analytics Lead -> the real IIM Ranchi AI-HR program). There's no PW Medharthi
+compliance-track program in the current catalogue, so "Compliance Officer" was removed
+rather than pointed at an unrelated program - re-add it if/when that changes.
 
 ---
 
